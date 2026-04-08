@@ -1,0 +1,26 @@
+class Solution:
+    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+        res = []
+        n = len(intervals)
+
+        i = 0
+        while i < n and intervals[i][1] < newInterval[0]:
+            res.append(intervals[i])
+            i += 1
+        
+        #if we get to this loop, 
+        while i < n and intervals[i][0] <= newInterval[1]:
+            start = min(intervals[i][0], newInterval[0])
+            end = max(intervals[i][1], newInterval[1])
+            newInterval = [start, end]
+            i += 1
+        
+        res.append(newInterval)
+
+        while i < n:
+            res.append(intervals[i])
+            i += 1
+    
+
+        return res
+        
